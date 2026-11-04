@@ -1,13 +1,14 @@
 class Solution {
     public int singleNumber(int[] nums) {
-      int ans=0;
-      for(int i=0;i<32;i++){
-        int sum=0;
-        for(int num:nums){
-            if(((num >> i)&1)==1) sum++;
+        HashMap<Integer,Integer> fr=new HashMap<>();
+        for(int num: nums){
+            fr.put(num,fr.getOrDefault(num,0)+1);
         }
-        if(sum%3!=0) ans=ans | (1<<i);
-      }
-      return ans;
+          for (int num : fr.keySet()) {
+            if (fr.get(num) == 1) {
+                return num;
+            }
+        }
+        return -1;
     }
 }
